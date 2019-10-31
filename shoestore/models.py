@@ -2,9 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
 
+
 # Create your models here.
+class Store(models.Model):
+    name = models.CharField(max_length=20)
+    goods = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.name
+
+
 CATEGORY_CHOICES = (
-    ("S", "Shoes"),
+    ("CL", "Casuals"),
+    ("BT", "Boots"),
+    ("OF", "Official"),
+    ("CS", "Closed shoes"),
+    ("OS", "Open shoes"),
     ("SW", "Sport wear"),
     ("OW", "Out wear"),
 )
@@ -27,6 +40,9 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['category']
 
     def get_absolute_url(self):
         return reverse("product", kwargs={

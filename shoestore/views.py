@@ -80,7 +80,8 @@ def register(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('/login')
+            messages.info(request, "Successfully registered")
+        return redirect('/')
     else:
         form = SignUpForm()
     return render(request, 'registration/signUp.html', {"form": form})

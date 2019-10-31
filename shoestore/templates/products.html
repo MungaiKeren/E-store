@@ -12,10 +12,10 @@
     <h4>
         Price:
         {%if object.discount_price %}
-        <del class="text-muted">$ {{object.price}}</del>
-        {{object.discount_price}}
+        <del class="text-muted">Ksh. {{object.price}}</del>
+        Ksh. {{object.discount_price}}
         {% else %}
-        {{object.price}}
+        Ksh. {{object.price}}
         <p>{{object.description}}</p>        
         {% endif %}
     </h4>
