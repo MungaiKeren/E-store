@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
+from django.contrib import messages
 
 
 # Create your views here.
@@ -29,12 +30,15 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
+            messages.info(request, "This quantity was updated")
         else:
+            messages.info(request, "Successfully added to cart")
             order.items.add(order_item)
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
+        messages.info(request, "Successfully added to cart")
     return redirect("product", slug=slug)
 
 
@@ -53,13 +57,15 @@ def remove_from_cart(request, slug):
                 ordered=False
             )[0]
             order.items.remove(order_item)
+            messages.info(request, "This item was removed from cart")
+            return redirect("product", slug=slug)
         else:
-            # render a message saying that the order does not contain this order item
-            return redirect("products", slug=slug)
+            messages.info(request, "This item was not in your cart")
+            return redirect("product", slug=slug)
     else:
         # should add a message saying the user doesn't have an order
+        messages.info(request, "You do not have an active order")
         return redirect("product", slug=slug)
-    return redirect("product", slug=slug)
 
 
 def checkout(request):
