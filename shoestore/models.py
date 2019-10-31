@@ -33,12 +33,25 @@ class Item(models.Model):
             "slug": self.slug
         })
 
+    def add_to_cart_url(self):
+        return reverse("add_to_cart", kwargs={
+            "slug": self.slug
+        })
+
+    def remove_from_cart_url(self):
+        return reverse("remove_from_cart", kwargs={
+            "slug": self.slug
+        })
+
 
 class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    quantity = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        return self.title
+        return f'{self.quantity} of {self.item.name}'
 
 
 class Order(models.Model):

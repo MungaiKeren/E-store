@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 {{block.super}}
+<style>
+    img{
+        object-fit:cover;
+    }
+</style>
 <div class="container">
     <h4>{{ object.get_category_display }}</h4>
+    <img src="{{object.image.url}}" class="img-responsive" height="300px" width="300px" alt="">
     <h4>
         Price:
         {%if object.discount_price %}
@@ -10,7 +16,14 @@
         {{object.discount_price}}
         {% else %}
         {{object.price}}
+        <p>{{object.description}}</p>        
         {% endif %}
     </h4>
+    <a href="{{ object.add_to_cart_url }}" class="btn btn-primary my-0 p">
+        Add to cart
+    </a>
+    <a href="{{ object.remove_from_cart_url }}" class="btn btn-danger my-0 p">
+        Remove from cart
+    </a>
 </div>
 {% endblock content%}
