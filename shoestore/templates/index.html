@@ -18,7 +18,14 @@
                 </div>
                 <div class="card-footer">
                     <h4>{{item.get_category_display}}</h4>
-                    <h4>Price: {{item.price}}</h4>
+                    <h4>Price:
+                        {%if item.discount_price %}
+                        {{item.discount_price}}
+                        {% else %}
+                        {{item.price}}
+                        {% endif %}
+                    </h4>
+                </div>
                     <p class="badge badge-pill {{item.get_label_display}}-color">NEW</p>
                 </div>
             </div>

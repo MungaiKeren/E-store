@@ -3,6 +3,14 @@
 {{block.super}}
 <div class="container">
     <h4>{{ object.get_category_display }}</h4>
-    <p>Price : {{object.price}}</p>
+    <h4>
+        Price:
+        {%if object.discount_price %}
+        <del class="text-muted">$ {{object.price}}</del>
+        {{object.discount_price}}
+        {% else %}
+        {{object.price}}
+        {% endif %}
+    </h4>
 </div>
 {% endblock content%}
