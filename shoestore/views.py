@@ -1,14 +1,42 @@
 from django.shortcuts import render, redirect
 from .forms import *
+from django.views.generic import ListView, DetailView
 
 
 # Create your views here.
-def index(request):
-    title = "E-Store"
+class HomeView(ListView):
+    model = Item
+    template_name = "index.html"
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = "products.html"
+
+
+# def index(request):
+#     title = "E-Store"
+#     items = Item.objects.all()
+#     context = {
+#         "title": title,
+#         "items": items,
+#     }
+#     return render(request, "index.html", context)
+
+
+# def products(request):
+#     items = Item.objects.all()
+#     context = {
+#         "items": items
+#     }
+#     return render(request, 'products.html', context)
+
+
+def checkout(request):
     context = {
-        "title": title,
+
     }
-    return render(request, "index.html", context)
+    return render(request, 'checkout.html', context)
 
 
 def register(request):

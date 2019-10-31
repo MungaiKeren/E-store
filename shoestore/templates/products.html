@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{{block.super}}
+<div class="container">
+    <h4>{{ object.get_category_display }}</h4>
+    <p>Price : {{object.price}}</p>
+</div>
+{% endblock content%}

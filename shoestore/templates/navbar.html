@@ -6,7 +6,7 @@
       background-color: #673AB7 !important;
     }
 </style>
-<!--Navbar -->
+<!-- Navbar -->
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="/">
       <i class="fas fa-home" style="font-size:36px;"></i>
@@ -18,21 +18,21 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="">Notices</a>
+        <a class="nav-link" href="">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Facilities</a>
+        <a class="nav-link" href="{%url 'checkout'%}">Checkout</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">New_Business</a>
+        <a class="nav-link" href=""></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Change hood</a>
+        <a class="nav-link" href=""></a>
       </li>
       <li class="nav-item dropdown">
           <form class="form-inline navbar-form" role="search" action="">
               <div class="md-form my-0">
-                  <input class="form-control mr-sm-2" type="text" name="businesses" placeholder="Search Businesses" aria-label="Search">
+                  <input class="form-control mr-sm-2" type="text" name="" placeholder="Search" aria-label="Search">
               </div>
           </form>
       </li>
@@ -57,12 +57,12 @@
         </div>
       </li>
       {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {%if user.is_authenticated%}
       <a href="" style="margin-top:4%;">
-        <i class="fas fa-bell" style="color:white; font-size:28px;"></i>
+        <i class="fas fa-shopping-cart" style="color:white; font-size:28px;"></i>
       </a>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <li class="nav-item dropdown">
-        {%if user.is_authenticated%}
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user" style="font-size:28px;"></i>

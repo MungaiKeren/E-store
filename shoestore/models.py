@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 # Create your models here.
 CATEGORY_CHOICES = (
@@ -15,14 +16,21 @@ LABEL_CHOICES = (
 
 
 class Item(models.Model):
-    title = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     price = models.FloatField()
+    discount_price = models.FloatField(blank=True, null=True)
     image = models.ImageField(upload_to='shoe_images', blank=True, default='shoe_images/shoestore.jpg')
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    slug = models.SlugField()
 
     def __str__(self):
-        return self.title
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("product", kwargs={
+            "slug": self.slug
+        })
 
 
 class OrderItem(models.Model):
