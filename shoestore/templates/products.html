@@ -5,25 +5,40 @@
     img{
         object-fit:cover;
     }
+    hr#hr{
+        height: 1px;
+        background-color: #64ccda;
+    }
 </style>
 <div class="container">
-    <h4>{{ object.get_category_display }}</h4>
-    <img src="{{object.image.url}}" class="img-responsive" height="300px" width="300px" alt="">
-    <h4>
-        Price:
-        {%if object.discount_price %}
-        <del class="text-muted">Ksh. {{object.price}}</del>
-        Ksh. {{object.discount_price}}
-        {% else %}
-        Ksh. {{object.price}}
-        <p>{{object.description}}</p>        
-        {% endif %}
-    </h4>
-    <a href="{{ object.add_to_cart_url }}" class="btn btn-primary my-0 p">
-        Add to cart
-    </a>
-    <a href="{{ object.remove_from_cart_url }}" class="btn btn-danger my-0 p">
-        Remove from cart
-    </a>
+    <div class="row">
+        <div class="col-md-5">
+            <h5 class="mt-3">Name: {{ object.name }}</h5>
+            <hr id="hr">
+            <img src="{{object.image.url}}" class="img-thumbnail mb-3" width="100%" alt="object image">
+        </div>
+        <div class="col-md-5 mt-3 ml-5">
+            <h4>
+                Category: {{ object.get_category_display }}
+                <br> <br> 
+                Price:
+                {%if object.discount_price %}
+                <del class="text-muted">Ksh. {{object.price}}</del>
+                Ksh. {{object.discount_price}}
+                {% else %}
+                Ksh. {{object.price}}
+                {% endif %}
+            </h4>
+            <p>{{object.description}}</p>
+            <hr>
+            <br> <br>
+            <a href="{{ object.add_to_cart_url }}" class="btn btn-sm btn-outline-info my-0 p">
+                Add to cart
+            </a>
+            <a href="{{ object.remove_from_cart_url }}" class="btn btn-sm btn-outline-danger my-0 p">
+                Remove from cart
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock content%}
