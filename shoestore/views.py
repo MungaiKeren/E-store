@@ -3,6 +3,7 @@ from .forms import *
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -16,6 +17,7 @@ class ItemDetailView(DetailView):
     template_name = "products.html"
 
 
+@login_required(login_url='/login')
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
@@ -42,6 +44,7 @@ def add_to_cart(request, slug):
     return redirect("product", slug=slug)
 
 
+@login_required(login_url='/login')
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
@@ -84,6 +87,7 @@ def search_results(request):
         return render(request, 'search.html', {"message": message})
 
 
+@login_required(login_url='/login')
 def checkout(request):
     context = {
 
