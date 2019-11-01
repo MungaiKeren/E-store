@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{% block content %}
+<div class="container">
+    {% if items %}
+    <h4>Found {{ items|length }} categories of searched {{ message }}</h4>
+    {% else %}
+    <h4>Found 0 categories of searched {{ message }}</h4>
+    {% endif %}
+    <div class="row">
+        {% if items %}
+        {% for category in items %}
+        <div class="col-md-4">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    <h5>{{category.name}}</h5>
+                </div>
+                <div class="card-title" href="{{item.get_absolute_url}}">
+                    <a href="{{item.get_absolute_url}}" class="view overlay zoom">
+                       <img src="{{category.image.url}}" width="100%" class="img-responsive" alt="searched image">
+                    </a>
+                </div>
+                <div class="card-footer">
+                    footer
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h4>There are no posts for this category.</h4>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -68,6 +68,22 @@ def remove_from_cart(request, slug):
         return redirect("product", slug=slug)
 
 
+def search_results(request):
+    if 'category' in request.GET and request.GET['category']:
+        search_term = request.GET.get('category')
+        searched_items = Item.search_by_category(search_term)
+        message = f'{search_term}'
+
+        context = {
+            "message": message,
+            "items": searched_items
+        }
+        return render(request, 'search.html', context)
+    else:
+        message = "Item was not found"
+        return render(request, 'search.html', {"message": message})
+
+
 def checkout(request):
     context = {
 

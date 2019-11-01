@@ -44,6 +44,12 @@ class Item(models.Model):
     class Meta:
         ordering = ['category']
 
+    @classmethod
+    def search_by_category(cls, search_term):
+        searched_item = cls.objects.filter(category__icontains=search_term)
+        return searched_item
+
+
     def get_absolute_url(self):
         return reverse("product", kwargs={
             "slug": self.slug

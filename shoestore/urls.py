@@ -10,7 +10,8 @@ urlpatterns = [
     path('product/<slug>/', ItemDetailView.as_view(), name='product'),
     path('register/', views.register, name='register'),
     path('add_to_cart/<slug>/', views.add_to_cart, name='add_to_cart'),
-    path('remove_from_cart/<slug>', views.remove_from_cart, name='remove_from_cart')
+    path('remove_from_cart/<slug>', views.remove_from_cart, name='remove_from_cart'),
+    path('search/', views.search_results, name='search')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
