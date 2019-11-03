@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -42,6 +44,16 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         messages.info(request, "Successfully added to cart")
     return redirect("product", slug=slug)
+
+
+class order_summary_view(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            return render(self.request, 'order_summary.html', {"object": order})
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You have no active order")
+            return redirect("/")
 
 
 @login_required(login_url='/login')

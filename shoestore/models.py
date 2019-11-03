@@ -34,7 +34,7 @@ class Item(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     image = models.ImageField(upload_to='shoe_images', blank=True, default='shoe_images/shoestore.jpg')
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=1, blank=True)
     description = models.TextField()
     slug = models.SlugField()
 

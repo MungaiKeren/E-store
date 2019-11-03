@@ -63,7 +63,7 @@
       </li>
       {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       {%if request.user.is_authenticated%}
-      <a href="" style="margin-top:4%;">
+      <a href="/order_summary/" style="margin-top:4%;">
         <span class="text-white" id="span" style="height:20px;">{{ request.user|cart_item_count }}</span>
         <i class="fas fa-shopping-cart" style="color:white; font-size:28px;"></i>
       </a>
