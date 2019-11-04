@@ -34,7 +34,7 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "This quantity was updated")
+            messages.info(request, "Quantity was updated :-)")
         else:
             messages.info(request, "Successfully added to cart")
             order.items.add(order_item)

@@ -22,16 +22,58 @@
     <tbody>
     {% for order_item in object.items.all %}
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">{{ forloop.counter }}</th>
         <td>{{ order_item.item.name }}</td>
+        {% if order_item.item.discount_price %}
+        <td>{{ order_item.item.discount_price }}</td>
+        {% else %}
         <td>{{ order_item.item.price }}</td>
-        <td>{{order_item.quantity}}</td>
-        <td>?\</td>
+        {% endif %}
+        <td>
+          <a href="">
+            <i class="fas fa-minus"></i>
+          </a> &nbsp;&nbsp;
+          {{order_item.quantity}} &nbsp;&nbsp;
+          <a href="">
+            <i class="fas fa-plus"></i>
+          </a>
+        </td>
+        {% if order_item.item.discount_price %}
+        <td>Ksh {{ order_item.get_total_discount_item_price}} &nbsp;&nbsp;
+          <span class="badge badge-info">Saving Ksh {{ order_item.get_amount_saved }}</span>
+          </td>
+        {% else %}
+        <td>Kes {{ order_item.get_total_item_price }}</td>
+        {% endif %}
       </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">Your cart is empty</td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <a href="{% url 'index'%}" class="btn btn-sm btn-primary">
+          Shop
+        </a>
+      </td>
+    </tr>
     {% endfor %}
         </tbody>
+    <tr>
+      <td></td>
+    </tr>
   </table>
-
+      {% if object.get_total %}
+      <h2 class="text-center mt-0">
+        Total Amount : Ksh {{ object.get_total }}
+        <a href="{% url 'index' %}" class="btn btn-sm btn-primary">
+        <i class="fas fa-angle-double-left" style="font-size:28px;"></i>
+        </a>
+        <a href="{% url 'checkout'%}" class="btn btn-sm btn-danger">
+        <i class="fas fa-angle-double-right" style="font-size:28px;"></i>
+        </a>
+      </h2>
+      {% endif %}
 </div>
 </div>
 {% endblock content%}
