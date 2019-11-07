@@ -35,15 +35,17 @@ def add_to_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "Quantity was updated :-)")
+            return redirect("order_summary")
         else:
             messages.info(request, "Successfully added to cart")
             order.items.add(order_item)
+            return redirect('order_summary')
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
         messages.info(request, "Successfully added to cart")
-    return redirect("product", slug=slug)
+    return redirect("order_summary")
 
 
 class order_summary_view(LoginRequiredMixin, View):
@@ -81,6 +83,35 @@ def remove_from_cart(request, slug):
         # should add a message saying the user doesn't have an order
         messages.info(request, "You do not have an active order")
         return redirect("product", slug=slug)
+
+
+@login_required(login_url='/login')
+def remove_single_item_from_cart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if order item is in the order
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            order_item.quantity -= 1
+            order_item.save()
+            messages.info(request, "This item quantity was reduced")
+            return redirect("order_summary")
+        else:
+            messages.info(request, "This item was not in your cart")
+            return redirect("product", slug=slug)
+    else:
+        # should add a message saying the user doesn't have an order
+        messages.info(request, "You do not have an active order")
+        return redirect("product", slug=slug)
+
 
 
 def search_results(request):

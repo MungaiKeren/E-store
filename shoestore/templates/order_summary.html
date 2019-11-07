@@ -35,11 +35,11 @@
 
         {% endif %}
         <td>
-          <a href="">
+          <a href="{% url 'remove_single_item_from_cart' order_item.item.slug %}">
             <i class="fas fa-minus"></i>
           </a> &nbsp;&nbsp;
           {{order_item.quantity}} &nbsp;&nbsp;
-          <a href="">
+          <a href="{% url 'add_to_cart' order_item.item.slug %}">
             <i class="fas fa-plus"></i>
           </a>
         </td>
