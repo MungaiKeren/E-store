@@ -17,6 +17,7 @@
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
         <th scope="col">Total item price</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -45,11 +46,16 @@
         </td>
         {% if order_item.item.discount_price %}
         <td>Ksh {{ order_item.get_total_discount_item_price}} &nbsp;&nbsp;
-          <span class="badge badge-info">Saving Ksh {{ order_item.get_amount_saved }}</span>
-          </td>
+          <span class="badge badge-info">Saving Ksh {{ order_item.get_amount_saved }}</span>  
+        </td>
         {% else %}
         <td>Kes {{ order_item.get_total_item_price }}</td>
         {% endif %}
+        <td>
+          <a href="{% url 'remove_from_cart' order_item.item.slug%}">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
       </tr>
     {% empty %}
     <tr>
@@ -63,7 +69,7 @@
       </td>
     </tr>
     {% endfor %}
-        </tbody>
+    </tbody>
     <tr>
       <td></td>
     </tr>
