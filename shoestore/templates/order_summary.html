@@ -24,10 +24,15 @@
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ order_item.item.name }}</td>
+
         {% if order_item.item.discount_price %}
+
         <td>{{ order_item.item.discount_price }}</td>
+
         {% else %}
+
         <td>{{ order_item.item.price }}</td>
+
         {% endif %}
         <td>
           <a href="">
